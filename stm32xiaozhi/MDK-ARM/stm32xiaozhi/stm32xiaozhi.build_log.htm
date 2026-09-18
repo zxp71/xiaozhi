@@ -1,0 +1,171 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.37.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 12 23, 34, LIC=HN0AE-5B40I-9UL4U-SKST5-IGF9H-FV78C
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.37.0.0
+Toolchain Path:  D:\keil\ARM\ARM_Compiler_5.06u7\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.37.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      Segger\JL2CM3.dll V2.99.43.0
+Dialog DLL:      TCM.DLL V1.56.1.0
+ 
+<h2>Project:</h2>
+E:\stm32\xiaozhi\stm32xiaozhi\MDK-ARM\stm32xiaozhi.uvprojx
+Project File Date:  09/02/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\keil\ARM\ARM_Compiler_5.06u7\Bin'
+Rebuild target 'stm32xiaozhi'
+assembling startup_stm32f103xe.s...
+compiling key.c...
+compiling led.c...
+compiling uart.c...
+..\Core\Src\uart.c(48): warning:  #1-D: last line of file ends without a newline
+  }
+..\Core\Src\uart.c: 1 warning, 0 errors
+compiling main.c...
+../Core/Src/main.c(100): warning:  #223-D: function "SoftPWM_SetDuty" declared implicitly
+    SoftPWM_SetDuty(SOFT_PWM_LED1, 20);
+../Core/Src/main.c(100): error:  #20: identifier "SOFT_PWM_LED1" is undefined
+    SoftPWM_SetDuty(SOFT_PWM_LED1, 20);
+../Core/Src/main.c(101): error:  #20: identifier "SOFT_PWM_LED2" is undefined
+    SoftPWM_SetDuty(SOFT_PWM_LED2, 50);
+../Core/Src/main.c(102): error:  #20: identifier "SOFT_PWM_LED3" is undefined
+    SoftPWM_SetDuty(SOFT_PWM_LED3, 80);
+../Core/Src/main.c(196): warning:  #223-D: function "SoftPWM_Updata" declared implicitly
+      SoftPWM_Updata();
+../Core/Src/main.c: 2 warnings, 3 errors
+compiling app_adc.c...
+compiling gpio.c...
+compiling adc.c...
+compiling usart.c...
+compiling tim.c...
+compiling soft_pwm.c...
+..\Core\Src\soft_pwm.c(13): error:  #20: identifier "uint8_t" is undefined
+  static uint8_t pwm_duty[3] ={0,0,0};
+..\Core\Src\soft_pwm.c(15): error:  #20: identifier "uint8_t" is undefined
+  static uint8_t pwm_count=0;
+..\Core\Src\soft_pwm.c(21): error:  #20: identifier "SOFT_PWM_LED1" is undefined
+      pwm_duty[SOFT_PWM_LED1]=0;
+..\Core\Src\soft_pwm.c(22): error:  #20: identifier "SOFT_PWM_LED2" is undefined
+      pwm_duty[SOFT_PWM_LED2]=0;
+..\Core\Src\soft_pwm.c(23): error:  #20: identifier "SOFT_PWM_LED3" is undefined
+      pwm_duty[SOFT_PWM_LED3]=0;
+..\Core\Src\soft_pwm.c(25): warning:  #223-D: function "HAL_GPIO_WritePin" declared implicitly
+      HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_RESET);
+..\Core\Src\soft_pwm.c(25): error:  #20: identifier "LED1_GPIO_Port" is undefined
+      HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_RESET);
+..\Core\Src\soft_pwm.c(25): error:  #20: identifier "LED1_Pin" is undefined
+      HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_RESET);
+..\Core\Src\soft_pwm.c(25): error:  #20: identifier "GPIO_PIN_RESET" is undefined
+      HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_RESET);
+..\Core\Src\soft_pwm.c(26): error:  #20: identifier "LED2_GPIO_Port" is undefined
+      HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,GPIO_PIN_RESET);
+..\Core\Src\soft_pwm.c(26): error:  #20: identifier "LED2_Pin" is undefined
+      HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,GPIO_PIN_RESET);
+..\Core\Src\soft_pwm.c(27): error:  #20: identifier "LED3_GPIO_Port" is undefined
+      HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_RESET);
+..\Core\Src\soft_pwm.c(27): error:  #20: identifier "LED3_Pin" is undefined
+      HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_RESET);
+..\Core\Src\soft_pwm.c(30): error:  #20: identifier "SoftPWM_Channel_t" is undefined
+  void SoftPWM_SetDuty(SoftPWM_Channel_t channel,uint8_t duty)
+..\Core\Src\soft_pwm.c(30): error:  #20: identifier "uint8_t" is undefined
+  void SoftPWM_SetDuty(SoftPWM_Channel_t channel,uint8_t duty)
+..\Core\Src\soft_pwm.c(32): error:  #20: identifier "SOFT_PWM_LED3" is undefined
+      if(channel>SOFT_PWM_LED3)
+..\Core\Src\soft_pwm.c(45): error:  #20: identifier "uint8_t" is undefined
+  uint8_t SoftPWM_GetDuty(SoftPWM_Channel_t channel)
+..\Core\Src\soft_pwm.c(45): error:  #20: identifier "SoftPWM_Channel_t" is undefined
+  uint8_t SoftPWM_GetDuty(SoftPWM_Channel_t channel)
+..\Core\Src\soft_pwm.c(47): error:  #20: identifier "SOFT_PWM_LED3" is undefined
+      if(channel>SOFT_PWM_LED3)
+..\Core\Src\soft_pwm.c(56): error:  #137: expression must be a modifiable lvalue
+      pwm_duty++;
+..\Core\Src\soft_pwm.c(57): error:  #20: identifier "SOFT_PWM_PERIOD" is undefined
+      if(pwm_count>=SOFT_PWM_PERIOD)
+..\Core\Src\soft_pwm.c(62): error:  #20: identifier "SOFT_PWM_LED1" is undefined
+      if(pwm_count<pwm_duty[SOFT_PWM_LED1])
+..\Core\Src\soft_pwm.c(64): warning:  #223-D: function "HAL_GPIO_WritePin" declared implicitly
+          HAL_GPIO_WritePin(
+..\Core\Src\soft_pwm.c(65): error:  #20: identifier "LED1_GPIO_Port" is undefined
+              LED1_GPIO_Port,
+..\Core\Src\soft_pwm.c(66): error:  #20: identifier "LED1_PIN" is undefined
+              LED1_PIN,
+..\Core\Src\soft_pwm.c(67): error:  #20: identifier "GPIO_PIN_SET" is undefined
+              GPIO_PIN_SET
+..\Core\Src\soft_pwm.c(72): warning:  #223-D: function "HAL_GPIO_WritePin" declared implicitly
+          HAL_GPIO_WritePin(
+..\Core\Src\soft_pwm.c(73): error:  #20: identifier "LED1_GPIO_Port" is undefined
+              LED1_GPIO_Port,
+..\Core\Src\soft_pwm.c(74): error:  #20: identifier "LED1_PIN" is undefined
+              LED1_PIN,
+..\Core\Src\soft_pwm.c(75): error:  #20: identifier "GPIO_PIN_RESET" is undefined
+              GPIO_PIN_RESET
+..\Core\Src\soft_pwm.c(80): error:  #20: identifier "SOFT_PWM_LED2" is undefined
+      if(pwm_count<pwm_duty[SOFT_PWM_LED2])
+..\Core\Src\soft_pwm.c(82): warning:  #223-D: function "HAL_GPIO_WritePin" declared implicitly
+          HAL_GPIO_WritePin(
+..\Core\Src\soft_pwm.c(83): error:  #20: identifier "LED2_GPIO_Port" is undefined
+              LED2_GPIO_Port,
+..\Core\Src\soft_pwm.c(84): error:  #20: identifier "LED2_PIN" is undefined
+              LED2_PIN,
+..\Core\Src\soft_pwm.c: 4 warnings, 30 errors
+compiling stm32f1xx_it.c...
+compiling stm32f1xx_hal_msp.c...
+compiling stm32f1xx_hal_gpio_ex.c...
+compiling stm32f1xx_hal.c...
+compiling stm32f1xx_hal_adc_ex.c...
+compiling stm32f1xx_hal_adc.c...
+compiling stm32f1xx_hal_rcc_ex.c...
+compiling stm32f1xx_hal_gpio.c...
+compiling stm32f1xx_hal_rcc.c...
+compiling stm32f1xx_hal_cortex.c...
+compiling stm32f1xx_hal_pwr.c...
+compiling stm32f1xx_hal_dma.c...
+compiling stm32f1xx_hal_flash.c...
+compiling stm32f1xx_hal_flash_ex.c...
+compiling stm32f1xx_hal_exti.c...
+compiling stm32f1xx_hal_uart.c...
+compiling stm32f1xx_hal_tim_ex.c...
+compiling stm32f1xx_hal_tim.c...
+compiling system_stm32f1xx.c...
+"stm32xiaozhi\stm32xiaozhi.axf" - 33 Error(s), 7 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                https://www.keil.com/pack/ARM.CMSIS.6.2.0.pack
+                ARM.CMSIS.6.2.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 6.1.1
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F1xx_DFP.2.4.1.pack
+                Keil.STM32F1xx_DFP.2.4.1
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_stm32xiaozhi
+  D:/keil/ARM/CMSIS/6.2.0/CMSIS/Core/Include
+  D:/keil/Keil/STM32F1xx_DFP/2.4.1/Device/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:6.1.1
+      Include file:  CMSIS/Core/Include/tz_context.h
+Target not created.
+Build Time Elapsed:  00:00:57
+</pre>
+</body>
+</html>
