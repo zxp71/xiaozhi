@@ -87,7 +87,7 @@ void SoftPWM_Updata(void)
     }
 
     /* 三路灯都在 GPIOA，一次写完，缩短 10us 中断占用 */
-    GPIOA->BSRR = set_mask | (rst_mask << 16);
+    GPIOA->BSRR = rst_mask | (set_mask << 16);
 }
 
 void SoftPWM_BreathUpdate(void)

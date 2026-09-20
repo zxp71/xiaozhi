@@ -1,41 +1,50 @@
 #include "key.h"
+#include "main.h"
 
-/* 板上按键接 GND，按下为低电平（GPIO_PIN_RESET），松开为高电平 */
-uint8_t KEY1_IsPressed(void)
+typedef enum
 {
-    if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) == GPIO_PIN_RESET)
-    {
-        HAL_Delay(20);
-        if (HAL_GPIO_ReadPin(KEY1_GPIO_Port, KEY1_Pin) == GPIO_PIN_RESET)
-        {
-            return KEY_PRESSED;
-        }
-    }
-    return KEY_RELEASED;
-}
+    KEY_STATE_RELEASED=0,
+    KEY_STATE_DEBOUNDE,
+    KEY_STATE_PRESSED
+}KEY_State_t;
 
-uint8_t KEY2_IsPressed(void)
-{
-    if (HAL_GPIO_ReadPin(KEY2_GPIO_Port, KEY2_Pin) == GPIO_PIN_RESET)
-    {
-        HAL_Delay(20);
-        if (HAL_GPIO_ReadPin(KEY2_GPIO_Port, KEY2_Pin) == GPIO_PIN_RESET)
-        {
-            return KEY_PRESSED;
-        }
-    }
-    return KEY_RELEASED;
-}
 
-uint8_t KEY3_IsPressed(void)
+uint8_t KEY1_GetPressEvent(void)
 {
-    if (HAL_GPIO_ReadPin(KEY3_GPIO_Port, KEY3_Pin) == GPIO_PIN_RESET)
+    static KEY_State_t state = KEY_STATE_RELEASED;
+    static uint32_t debounce_start_time = 0;
+
+    GPIO_PinState pin_state= HAL_GPIO_ReadPin(KEY1_GPIO_Port,KEY1_Pin);
+    switch(state)
     {
-        HAL_Delay(20);
-        if (HAL_GPIO_ReadPin(KEY3_GPIO_Port, KEY3_Pin) == GPIO_PIN_RESET)
+        case KEY_STATE_RELEASED:
+        if(pin_state==GPIO_PIN_RESET)
         {
-            return KEY_PRESSED;
+            debounce_start_time = HAL_GetTick();
+            state = KEY_STATE_DEBOUNDE;
         }
+    
+        break;
+        case KEY_STATE_DEBOUNDE:
+        if(pin_state==GPIO_PIN_SET)
+        {
+            state = KEY_STATE_RELEASED;
+        }
+        else if(HAL_GetTick()-debounce_start_time>=20)
+        {
+            state=KEY_STATE_PRESSED;
+            return 1;
+        }
+        break;
+        case KEY_STATE_PRESSED:
+        if(pin_state==GPIO_PIN_SET)
+        {
+            state=KEY_STATE_RELEASED;
+        }
+        break;
+        default:
+        state=KEY_STATE_RELEASED;
+        break;
     }
-    return KEY_RELEASED;
+    return 0;
 }

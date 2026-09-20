@@ -31,6 +31,13 @@
 #include "uart.h"
 #include "stdio.h"
 #include "soft_pwm.h"
+typedef enum
+{
+  LED_MODE_MANUAL=0,
+  LED_MODE_BREATH,
+  LED_MODE_OFF
+}LED_Mode_t;
+static LED_Mode_t led_mode=LED_MODE_MANUAL;
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,27 +117,26 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /*
-    uint16_t adc_value;
-    float voltage;
-    char buffer[64];
-
-    adc_value = APP_ADC_GetAverageValue();
-    voltage = APP_ADC_GetVoltage();
-
-    sprintf (buffer, 
-      "ADC = %u,Voltage = %.2f V",
-       adc_value,
-       voltage);
-
-    UART_Log(buffer);
-
-    HAL_Delay(1000);
-    */
-    
-    
-    SoftPWM_BreathUpdate();
-    HAL_Delay(10);
+    if(KEY1_GetPressEvent())
+    {
+      led_mode++;
+      if(led_mode>LED_MODE_OFF)
+      {
+        led_mode=LED_MODE_MANUAL;
+      }
+    }
+    switch(led_mode)
+    {
+      case LED_MODE_MANUAL:
+      LED_ManualControl();
+      break;
+      case LED_MODE_BREATH:
+      LED_BreathMode();
+      break;
+      case LED_MODE_OFF:
+      LED_Off();
+      break;
+    }
 
     /* USER CODE END WHILE */
 

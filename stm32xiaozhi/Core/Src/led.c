@@ -1,48 +1,23 @@
-#include "main.h"
+#include "app_adc.h"
 #include "led.h"
+#include "soft_pwm.h"
 
-
-void LED1_On(void)
+void LED_ManualControl(void)
 {
-    HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_SET);
+    uint16_t adc_value = APP_ADC_GetValue();
+    uint8_t duty = (uint8_t)((adc_value * 100) / 4095);
+    SoftPWM_SetDuty(SOFT_PWM_LED1,duty);
 }
 
-void LED2_On(void)
+void LED_BreathMode(void)
 {
-    HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,GPIO_PIN_SET);
+    SoftPWM_BreathUpdate();
+    HAL_Delay(10); // 延时 10ms，呼吸灯频率约为 1Hz
 }
 
-void LED3_On(void)
+void LED_Off(void)
 {
-    HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
-}
-
-void LED1_Off(void)
-{
-    HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_RESET);
-}
-
-void LED2_Off(void)
-{
-    HAL_GPIO_WritePin(LED2_GPIO_Port,LED2_Pin,GPIO_PIN_RESET);
-}
-
-void LED3_Off(void)
-{
-    HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_RESET);
-}
-
-void LED1_Toggle(void)
-{
-    HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-}
-
-void LED2_Toggle(void)
-{
-    HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
-}
-
-void LED3_Toggle(void)
-{
-    HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);
+    SoftPWM_SetDuty(SOFT_PWM_LED1,0);
+    SoftPWM_SetDuty(SOFT_PWM_LED2,0);
+    SoftPWM_SetDuty(SOFT_PWM_LED3,0);
 }

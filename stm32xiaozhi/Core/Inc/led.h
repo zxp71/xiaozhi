@@ -2,23 +2,14 @@
 #define __LED_H__
 
 #include "main.h"
+#include "app_adc.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void LED1_On(void);
-void LED2_On(void);
-void LED3_On(void);
-
-void LED1_Off(void);
-void LED2_Off(void);
-void LED3_Off(void);
-
-void LED1_Toggle(void);
-void LED2_Toggle(void);
-void LED3_Toggle(void);
-
+void LED_ManualControl(void);
+void LED_BreathMode(void);
+void LED_Off(void);
 #ifdef __cplusplus
 }
 #endif

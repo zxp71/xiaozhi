@@ -10,9 +10,9 @@
 extern "C" {
 #endif
 
-uint8_t KEY1_IsPressed(void);
-uint8_t KEY2_IsPressed(void);
-uint8_t KEY3_IsPressed(void);
+uint8_t KEY1_GetPressEvent(void);
+uint8_t KEY2_GetPressEvent(void);
+uint8_t KEY3_GetPressEvent(void);
 
 #ifdef __cplusplus
 }
