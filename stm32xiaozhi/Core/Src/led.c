@@ -12,7 +12,7 @@ void LED_ManualControl(void)
 void LED_BreathMode(void)
 {
     SoftPWM_BreathUpdate();
-    HAL_Delay(10); // 延时 10ms，呼吸灯频率约为 1Hz
+    HAL_Delay(10); // 延时 10ms，控制呼吸灯变化速度
 }
 
 void LED_Off(void)

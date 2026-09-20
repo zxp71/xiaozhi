@@ -17,7 +17,7 @@ typedef enum
 void SoftPWM_Init(void);
 void SoftPWM_SetDuty(SoftPWM_Channel_t channel, uint8_t duty);
 uint8_t SoftPWM_GetDuty(SoftPWM_Channel_t channel);
-void SoftPWM_Updata(void);
+void SoftPWM_Update(void);
 void SoftPWM_BreathUpdate(void);
 
 #ifdef __cplusplus

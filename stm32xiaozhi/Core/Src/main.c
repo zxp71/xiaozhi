@@ -38,6 +38,9 @@ typedef enum
   LED_MODE_OFF
 }LED_Mode_t;
 static LED_Mode_t led_mode=LED_MODE_MANUAL;
+static LED_Mode_t last_mode=LED_MODE_MANUAL;
+uint32_t breath_tick=0;
+uint8_t cmd;
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,19 +107,44 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM2_Init();
   MX_ADC1_Init();
-  SoftPWM_Init();
+  //SoftPWM_Init();
+  UART_Init();
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE BEGIN 2 */
-    UART_Log("================================");
-    UART_Log("System Start");
-    UART_Log("STM32F103 Init OK");
-    UART_Log("================================");
+    //UART_Log("================================");
+    //UART_Log("System Start");
+    //UART_Log("STM32F103 Init OK");
+    //UART_Log("================================");
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+      if (UART_GetRxData(&cmd))
+    {
+      if (cmd == '1')
+      {
+          HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
+      }
+    }
+    /*if(UART_GetRxData(&cmd))
+    {
+      switch(cmd)
+      {
+        case '1':
+          LED_ManualControl();
+          break;
+        case '2':
+          LED_BreathMode();
+          break;
+        case '3':
+          LED_Off();
+          break;
+      }
+    }*/
+    /*按键控制模式
+    uint32_t now = HAL_GetTick();
     if(KEY1_GetPressEvent())
     {
       led_mode++;
@@ -128,15 +156,27 @@ int main(void)
     switch(led_mode)
     {
       case LED_MODE_MANUAL:
-      LED_ManualControl();
-      break;
+        LED_ManualControl();
+        break;
+
       case LED_MODE_BREATH:
-      LED_BreathMode();
-      break;
+        if(now-breath_tick>=10)
+        {
+         breath_tick=now;
+          LED_BreathMode();
+       }
+        break;
+
       case LED_MODE_OFF:
-      LED_Off();
-      break;
-    }
+        if(last_mode!=led_mode)
+        {
+         if(led_mode==LED_MODE_OFF)
+          {
+          LED_Off();
+          }
+        }
+        break;
+    }*/
 
     /* USER CODE END WHILE */
 
@@ -194,15 +234,15 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+//{
 
 
-  if (htim->Instance == TIM2)
-  {
-    SoftPWM_Updata();
-  }
-}
+  //if (htim->Instance == TIM2)
+ // {
+ //   SoftPWM_Update();
+ // }
+//}
 
 /* USER CODE END 4 */
 

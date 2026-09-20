@@ -48,7 +48,7 @@ uint8_t SoftPWM_GetDuty(SoftPWM_Channel_t channel)
     return pwm_duty[channel];
 }
 
-void SoftPWM_Updata(void)
+void SoftPWM_Update(void)
 {
     uint32_t set_mask = 0;
     uint32_t rst_mask = 0;

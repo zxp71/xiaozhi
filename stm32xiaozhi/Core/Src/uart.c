@@ -2,47 +2,33 @@
 #include "usart.h"
 #include<string.h>
 
-void UART_SendByte(uint8_t data)
+static uint8_t uart_rx_data;
+static uint8_t uart_rx_flag;
+
+void UART_Init(void)
 {
-    HAL_UART_Transmit(&huart1,&data,1,100);
+    HAL_UART_Receive_IT(&huart1,
+                       &uart_rx_data,
+                       1);
+}
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    if(huart->Instance == USART1)
+    {
+        uart_rx_flag = 1;
+        HAL_UART_Receive_IT(&huart1,
+                           &uart_rx_data,
+                           1);
+    }
 }
 
-void UART_SendData(const uint8_t *data,uint16_t len)
+uint8_t UART_GetRxData(uint8_t *data)
 {
-    if(data==NULL||len==0)
+    if(uart_rx_flag)
     {
-        return;
+        *data = uart_rx_data;
+        uart_rx_flag = 0;
+        return 1;
     }
-    HAL_UART_Transmit(&huart1,(uint8_t*)data,len,100);
-}
-
-void UART_SendString(const char *str)
-{
-    if(str==NULL)
-    {
-        return;
-    }
-    UART_SendData((const uint8_t *)str,(uint16_t)strlen(str));
-}
-
-void UART_Log(const char *message)
-{
-    if(message==NULL)
-    {
-        return;
-    }
-    UART_SendString("[INFO]");
-    UART_SendString(message);
-    UART_SendString("\r\n");
-}
-
-void UART_Error(const char *message)
-{
-    if(message==NULL)
-    {
-        return;
-    }
-    UART_SendString("[ERROR]");
-    UART_SendString(message);
-    UART_SendString("\r\n");
+    return 0;
 }
