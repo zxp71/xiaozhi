@@ -120,39 +120,33 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-      if (UART_GetRxData(&cmd))
-    {
-      if (cmd == '1')
-      {
-          HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-      }
-    }
-    /*if(UART_GetRxData(&cmd))
+  {   
+    uint32_t now = HAL_GetTick();
+    if(UART_GetRxData(&cmd))
     {
       switch(cmd)
       {
         case '1':
-          LED_ManualControl();
+          led_mode=LED_MODE_MANUAL;
           break;
         case '2':
-          LED_BreathMode();
+          led_mode=LED_MODE_BREATH;
           break;
         case '3':
-          LED_Off();
+          led_mode=LED_MODE_OFF;
           break;
       }
-    }*/
-    /*按键控制模式
-    uint32_t now = HAL_GetTick();
-    if(KEY1_GetPressEvent())
+    }
+  
+   
+    /*if(KEY1_GetPressEvent())
     {
       led_mode++;
       if(led_mode>LED_MODE_OFF)
       {
         led_mode=LED_MODE_MANUAL;
       }
-    }
+    }*/
     switch(led_mode)
     {
       case LED_MODE_MANUAL:
@@ -176,7 +170,7 @@ int main(void)
           }
         }
         break;
-    }*/
+    }
 
     /* USER CODE END WHILE */
 
@@ -234,15 +228,15 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 
-//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-//{
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
 
 
-  //if (htim->Instance == TIM2)
- // {
- //   SoftPWM_Update();
- // }
-//}
+  if (htim->Instance == TIM2)
+  {
+    SoftPWM_Update();
+  }
+}
 
 /* USER CODE END 4 */
 
